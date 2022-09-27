@@ -1,0 +1,43 @@
+
+<form method="post" action="<?php echo $block->getAddCarPostUrl() ?>">
+    <fieldset>
+        <div>
+            <label for="manufacturer"><?= __("author_name") ?></label>
+            <input type="text" name="author_name" id="author_name" />
+        </div>
+        <div>
+            <label for="email"><?= __("email") ?>
+                <input type="text" name="email" id="email" />
+        </div>
+        <div>
+            <label for="description"><?= __("description") ?>
+                <input type="text" name="description" id="description" />
+        </div>
+        <input type="submit" value="<?= __("submit") ?>" />
+    </fieldset>
+</form>
+<hr>
+<?php
+
+$data = $block->getAlldata();
+
+if (count($data) > 0) : ?>
+    <table border="2">
+        <tr>
+            <th>id</th>
+            <th>auther</th>
+            <th>email</th>
+            <th>description</th>
+        </tr>
+        <?php foreach ($data as $rows) : ?>
+            <tr>
+                <td><?= $rows['id'] ?>
+                <td><?= $rows['author_name'] ?>
+                <td><?= $rows['email'] ?>
+                <td><?= $rows['description'] ?>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php else : ?>
+    <h1><?= __("You have no data yet :(") ?></h1>
+<?php endif; ?>
