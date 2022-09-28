@@ -29,13 +29,21 @@ class Add extends Action
     public function execute()
     {
 
-        $data = $this->getRequest()->getParams();
-        $carModel = $this->data;
-        $carModel->setData($data);
+        $info = $this->getRequest()->getParams();
+        $name=$info['author_name'];
+        $email=$info['email'];
+        $desc=$info['description'];
+
+        $savedata = $this->data;
+        $savedata->setName($name);
+        $savedata->setEmail($email);
+        $savedata->setDesc($desc);
+      
 
         try {
-            $this->Resource->save($carModel);
+            $this->Resource->save($savedata);
             $this->messageManager->addSuccessMessage("data saved successfully!");
+            $this->messageManager->addSuccessMessage("Dilip BRO is super");
         } catch (\Exception $exception) {
             $this->messageManager->addErrorMessage(__("Error saving data"));
         }

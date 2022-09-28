@@ -3,31 +3,37 @@
 namespace Vivek\Form\Block;
 
 use Magento\Framework\View\Element\Template;
-use Vivek\Form\Model\ResourceModel\Form\Collection;
+use Magento\Framework\View\Element\Template\Context;
+use Vivek\Form\Model\ResourceModel\Form\CollectionFactory as ViewCollectionFactory;
 
-class Form extends Template
+class Form extends \Magento\Framework\View\Element\Template
 {
-    
-    private $collection;
+
+   
+    protected $_viewCollectionFactory = null;
 
 
     public function __construct(
-        Template\Context $context,
-        Collection $collection,
+        Context $context,
+        ViewCollectionFactory $viewCollectionFactory,
         array $data = []
-    )
-    {
+    ) {
+        $this->_viewCollectionFactory  = $viewCollectionFactory;
         parent::__construct($context, $data);
-        $this->collection = $collection;
     }
 
-    public function getAlldata() {
-        return $this->collection;
+
+    public function getCollection()
+    {
+        // $val = $this->getId();
+        $viewCollection = $this->_viewCollectionFactory->create();
+        $viewCollection->addFieldToSelect('*')->load();
+        return $viewCollection->getItems();
     }
+
+
 
     public function getAddCarPostUrl() {
         return $this->getUrl('form/data/add');
     }
-
-  
 }
